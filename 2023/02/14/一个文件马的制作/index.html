@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
-        <title>Archives | 𝓐𝓵𝓲𝓬𝓮01</title>
+        <title>一个文件马的制作 | 𝓐𝓵𝓲𝓬𝓮01</title>
         <meta name="author" content="alice01">
         <meta name="description" content="𝓗𝓪𝓹𝓹𝔂 𝓼𝓾𝓰𝓪𝓻 𝓵𝓲𝓯𝓮.">
         <meta name="keywords" content="">
@@ -118,75 +118,28 @@
                     </div>
                     <div id="main">
                         
-<div id="archives">
-    
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2023/12/4</div>
-            <a href="/2023/12/04/hvv蓝队/">
-                <h3>蓝队日志基础</h3>
-            </a>
-            <div class="info">
-                
-                
-            </div>
-        </div>
+<div class="article">
+    <div>
+        <h1>一个文件马的制作 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <svg class="fa-icon"><use xlink:href="#calendar-solid"></use></svg>
+            </span>
+            2023/2/14
+        </span>
+        
+        
+    </div>
+    <div class="content" v-pre>
+        <p>图片和马放在一个文件夹<br>cmd copy 1.jpg&#x2F;b+2.php 3.jpg</p>
+
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2023/12/4</div>
-            <a href="/2023/12/04/安全证书建议/">
-                <h3>安全证书建议</h3>
-            </a>
-            <div class="info">
-                
-                
-            </div>
-        </div>
-    </div>
-    
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2023/2/14</div>
-            <a href="/2023/02/14/一个文件马的制作/">
-                <h3>一个文件马的制作</h3>
-            </a>
-            <div class="info">
-                
-                
-            </div>
-        </div>
-    </div>
-    
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2022/11/8</div>
-            <a href="/2022/11/08/upload/">
-                <h3>upload</h3>
-            </a>
-            <div class="info">
-                
-                
-            </div>
-        </div>
-    </div>
-    
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2022/11/8</div>
-            <a href="/2022/11/08/xss/">
-                <h3>xss</h3>
-            </a>
-            <div class="info">
-                
-                
-            </div>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.7.2/gitalk.min.css">
+    <div id="comment">
+        <div id="gitalk-container">
         </div>
     </div>
     
@@ -218,6 +171,23 @@
         <script src="/js/particlex.js"></script>
         <script src="/js/showimg.js"></script>
         
+<script src="https://cdn.staticfile.org/gitalk/1.7.2/gitalk.min.js"></script>
+<script>
+    var clientID = "", clientSecret = "";
+    
+    const gitalk = new Gitalk({
+        clientID: clientID,
+        clientSecret: clientSecret,
+        repo: "",
+        owner: "",
+        admin: [""],
+        language: "zh-CN",
+        id: location.pathname,
+        distractionFreeMode: true
+    })
+    gitalk.render("gitalk-container")
+</script>
+
 
     </body>
 </html>

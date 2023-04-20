@@ -153,7 +153,7 @@
 <p>端口: db25000 mysql3306 sqlserver1422 mssql1433 redis6379 Oracle1521 ftp21 ssh22 telnet23 smtp25 http443 weblogic7001 openssl443  </p>
 <p>越权判断<br>例如修改一些参数值，id为0还是1、admin为true还是false等</p>
 <p>同源策略:同协议,端口,域名共享cookie</p>
-<p>sql注入盲注如果sleep()函数禁用<br>使用同样功能的函数代替，比如benchmark() Get_lock()函数</p>
+<p>sql注入盲注sleep()函数禁用<br>使用同样功能的函数代替，比如benchmark() Get_lock()函数</p>
 <p>常用的报错注入的函数<br>floor()函数、exp()函数、updatexml()函数、join()函数</p>
 <p>redis数据库和常见的漏洞<br>答：redis是一个非关系型数据库,默认端口6379。常见漏洞是未授权,攻击者无需认证就可以访问内部数据,也能getshell。</p>
 <p>二次注入<br>第一次插入数据时，仅使用了<code>addslashes</code>或借助<code>get_magic_quotes_gpc</code>对其中特殊字符转义，在写入数据库的时候还是保留了原来的数据，但是数据本身还是脏数据。在将数据存入到了数据库中之后，开发者就认为数据是可信的。在下一次进行需要进行查询的时候，直接从数据库中取出了脏数据，没有进行进一步的检验和处理，这样就会造成SQL的二次注入</p>

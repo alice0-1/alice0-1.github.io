@@ -159,8 +159,11 @@
 <p>二次注入<br>第一次插入数据时，仅使用了<code>addslashes</code>或借助<code>get_magic_quotes_gpc</code>对其中特殊字符转义，在写入数据库的时候还是保留了原来的数据，但是数据本身还是脏数据。在将数据存入到了数据库中之后，开发者就认为数据是可信的。在下一次进行需要进行查询的时候，直接从数据库中取出了脏数据，没有进行进一步的检验和处理，这样就会造成SQL的二次注入</p>
 <p>菜刀流量特征: 使用了base64的方式加密了发送给“菜刀马”的指令，其中的两个关键payload z1和z2，这 个名字是可变的</p>
 <p>蚁剑流量特征: 默认的user-agent是antsword xxx,但是可以通过修改&#x2F;modules&#x2F;request.js 文件中请求UA绕过 其中流量最中明显的特征为@ini_set(“display_errors”,”0”);这段代码基本是所有 WebShell客户端链接PHP类WebShell都有的一种代码<br>蚁剑混淆加密后还有一个比较明显的特征,即为参数名大多以“_0x……&#x3D;”这种形式（下划 线可替换），所以以_0x开头的参数名也很可能就是恶意流量</p>
-<p>冰蝎流量特征:流量动态加密<br>看包没有发现什么特征，但是可以发现它是POST请求的<br>1.	Accept头有application&#x2F;xhtml+xmlapplication&#x2F;xmlapplication&#x2F;signedexchange属于弱特征（UA头的浏览器版本很老）<br>2.	特征分析Content-Type: application&#x2F;octet-stream 这是一个强特征查阅资料可 知octet-stream的意思是，只能提交二进制，而且只能提交一个二进制，如果提交文件的 话，只能提交一个文件,后台接收参数只能有一个，而且只能是流（或者字节数组）；很少使用<br>冰蝎 二 默认Accept字段的值很特殊,而且每个阶段都一样冰蝎内置了十余种UserAgent ，每次连接 shell 会随机选择一个进行使用。但都是比较老的，r容易被检测到，但是可以在burp中修改 ua头。<br>Content-Length: 16, 16就是冰蝎2连接的特征<br>冰蝎 三 取消动态密钥获取，目前很多waf等设备都做了冰蝎2的流量特征分析，所以3取消了动态密钥获取php抓包看包没有发现什么特征，但是可以发现它是POST请求的<br>(1)	Accept头application&#x2F;xhtml+xmlapplication&#x2F;xmlapplication&#x2F;signedexchange属于弱特征<br>(2)	ua头该特征属于弱特征。通过burp可以修改,冰蝎3.0内置的默认16个userAgent都比较 老。现实生活中很少有人使用，所以这个也可以作为waf规则特征<br>jsp抓包特征分析Content-Type: application&#x2F;octet-stream 这是一个强特征查阅 资料可知 octet-stream的意思是，只能提交二进制，而且只能提交一个二进制，如果提交 文件的话，只能提交 一个文件,后台接收参数只能有一个，而且只能是流（或者字节数组）； 很少使用。</p>
+<p>冰蝎流量特征:流量动态加密<br>看包没有发现什么特征，但是可以发现它是POST请求的<br>1.	Accept头有application&#x2F;xhtml+xmlapplication&#x2F;xmlapplication&#x2F;signedexchange属于弱特征（UA头的浏览器版本很老）<br>2.	特征分析Content-Type: application&#x2F;octet-stream<br>冰蝎 二 默认Accept字段的值很特殊,而且每个阶段都一样冰蝎内置十余种UserAgent ，每次连接 shell 会随机选择一个进行使用。<br>Content-Length: 16, 16就是冰蝎2连接的特征<br>冰蝎 三 取消动态密钥获取，抓包没有发现特征，但是可以发现它是POST请求的<br>(1)	Accept头application&#x2F;xhtml+xmlapplication&#x2F;xmlapplication&#x2F;signedexchange属于弱特征<br>(2)	ua头该特征属于弱特征。通过burp可以修改,冰蝎3默认16个userAgent<br>jsp抓包特征分析Content-Type: application&#x2F;octet-stream</p>
 <p>log4j2原理: log4j2框架下的lookup查询服务提供了{}字段解析功能，传进去的值会被直接解析。这样不对lookup的出栈进行限制，就有可能让查询指向任何服务<br>攻击者可以利用这一点进行JNDI注入，使得受害者请求远程服务来链接本地对象，在lookup的{}里面构造payload，调用JNDI服务向攻击者提前部署好的恶意站点获取恶意的.class对象，造成了远程代码执行（可反弹shell到指定服务器）</p>
+<p>fastjson原理:在请求包中发送恶意json格式payload，漏洞在处理json对象的时候，没有对@type过滤，导致可以传入恶意的TemplatesImpl类,这个类有一个字段就是_bytecodes，部分函数会根据这个生成java实例,达到fastjson通过字段传一个类,再通过这个类被生成时执行构造函数</p>
+<p>Weblogic存在管理后台,通过账号密码登录，由于管理员经常用弱口令，或者默认的账户名密码。因此存在弱口令爆破的风险。</p>
+<p>Shiro反序列化漏洞:Apache Shiro框架提供RemeberMe,登录成功后会生成经过加密并编码的cookie。cookie的key为RemeberMe，cookie的值是经过对相关信息进行序列化，然后使用aes加密，最后在使用base64编码处理形成的,在调用反序列化的时候未进行任何过滤,导致可以触发远程代码执行漏洞</p>
 <p>getshell的方式: 文件上传,RCE,文件包含,反序列化</p>
 <p>owasp top10: SQL 注入 失效的身份认证 敏感数据泄露 XXE<br>失效的访问控制 安全配置错误 XSS 不安全的反序列化<br>使用含有已知漏洞的组件 不足的日志记录和监控</p>
 <p>正反向shell<br>正向Shell：攻击者连接被攻击者,可用于攻击者处于内网，被攻击者公网<br>反向 Shell：被攻击者主动连接攻击者，可用于攻击者处—-<br>正向代理，客户端代理，服务器不知道实际发起请求的客户端<br>反向代理，服务器代理，客户端不知道实际提供服务的服务端</p>
@@ -176,7 +179,6 @@
 <p>判断出网站的 CMS 对渗透的意义<br>查找网上已曝光的程序漏洞。 如果开源，还能下载相对应的源码进行代码审计。</p>
 <p>中间件漏洞<br>IIS: PUT漏洞,短文件名猜解,远程代码执行,解析漏洞<br>Apache: 解析漏洞,目录遍历等<br>Nginx:文件解析,目录遍历,CRLF注入,目录穿越<br>Tomcat: 远程代码执行,war后门文件部署<br>JBoss: 反序列化漏洞、war后门文件部署<br>WebLogic: 反序列化漏洞,SSRF任意文件上传,war后门文件部署等</p>
 <p>登录页面漏洞<br>注入点以及万能密码<br>敏感信息泄露<br>验证码绕过<br>无限注册帐号<br>任意密码重置<br>明文传输<br>越权漏洞</p>
-<p>fastjson原理<br>在请求包中发送恶意json格式payload，漏洞在处理json对象的时候，没有对@type过滤，导致可以传入恶意的TemplatesImpl类,这个类有一个字段就是_bytecodes，部分函数会根据这个生成java实例,达到fastjson通过字段传一个类,再通过这个类被生成时执行构造函数</p>
 <p>3389端口无法连接的几种情况<br>3389关闭状态，2.端口修改，3.防火墙连接，4.处于内网环境，5.超过了服务器最大连接数，6.管理员设置权限,指定用户登录。</p>
 <p>黑链: 是通过黑客行为从互联网上收集来的违法或者不良信息。这些信息包括：网站、博客、论坛、个人信息、电子邮件地址、密码、软件序列号和银行帐号等。黑链通常是通过病毒、木马、间谍软件和其他方式从计算机中盗取信息<br>危害:(1)导致许多的导出连接,由于连接联动性关系,你的网站很容易受连累,被安全网址阻止(2) 容易被IDC主机商的服务平台存在风险性连接,而被关闭网络服务器(3) 倘若一直在试着利用蓄意入侵方法得到黑链,现实意义上是一种违法行为。<br>检测: 通过查看网站源代码来，找到不明链接，一般首页权重比较高，所以黑链出现在首页的概率也比较大。</p>
 <p>OSI模型和TCP&#x2F;IP体系结构<br>OSI: 物理层,数据链路层,网络层,传输层,会话层,表达层,应用层<br>TCP&#x2F;IP: 网络接口层,网络层,传输层,应用层</p>

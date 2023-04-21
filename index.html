@@ -207,7 +207,7 @@
 <p>二次注入<br>第一次插入数据时，仅使用了<code>addslashes</code>或借助<code>get_magic_quotes_gpc</code>对特殊字符转义,在写入数据库时保留了原来的数据,但是数据本身还是脏数据。在将数据存入到了数据库中之后,就认为数据是可信的。在下一次进行需要进行查询时,直接从数据库取出脏数据,没有进一步的检验造成二次注入</p>
 <p>sql注入盲注sleep()函数禁用<br>使用同样功能的函数代替，比如benchmark() Get_lock()函数</p>
 <p>常用的报错注入的函数<br>floor()函数、exp()函数、updatexml()函数、join()函数</p>
-<p>菜刀流量特征: (1)eval函数(2) payload Base64解码在,因为默认是攻击载荷使用Base64编码<br>（3）&amp;z0&#x3D;QGluaV9zZXQ…，该部分是传递攻击payload，此参数z0对应$_POST[z0]接收到的数据，该参数值是使用Base64编码的，所以可以利用base64解码可以看到攻击明文</p>
+<p>菜刀流量特征: (1)eval()(2)base64编码(3) 请求体中有(base64_decode($_POST[z0]);通过&amp;z0&#x3D;QGluaV9zZXQ…传递payload</p>
 <p>蚁剑流量特征: (1)默认的 user-agent 请求头是 antsword xxx（可修改）(2)蚁剑的正文内容用URL加密，解密后流量最中明显的特征为ini_set (“display_errors”,”0”);</p>
 <p>冰蝎流量特征:流量动态加密<br>1.请求包Content-Type: application&#x2F;octet-stream<br>2.返回包Transfer-Encoding:chunked<br>冰蝎二 (1)二次密钥协商(2)内置十多个ua头(3)content-length: 16 (4) accept字段:字段很特殊：text&#x2F;html, image&#x2F;gif, image&#x2F;jpeg, *; q&#x3D;.2, &#x2F;; q&#x3D;.2<br>Content-Length: 16, 16就是冰蝎2连接的特征<br>冰蝎三(1)预共享密钥(2)内置16个ua头(3) content-type: text&#x2F;html;charset&#x3D;utf-8 (4)accept: 字段特殊</p>
 <p>哥斯拉: base64加密<br>(1)请求 Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;webp,&#x2F;;q&#x3D;0.8<br>(2)响应Cache-Control: no-store, no-cache, must-revalidate,<br>(3)所有请求中Cookie后面都存在；特征</p>

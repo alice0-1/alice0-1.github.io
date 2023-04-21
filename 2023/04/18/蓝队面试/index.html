@@ -149,7 +149,7 @@
 <p>常用的报错注入的函数<br>floor()函数、exp()函数、updatexml()函数、join()函数</p>
 <p>菜刀流量特征: (1)eval()(2)base64编码(3) 请求体中有(base64_decode($_POST[z0]);通过&amp;z0&#x3D;QGluaV9zZXQ…传递payload</p>
 <p>蚁剑流量特征: (1)默认的 user-agent 请求头是 antsword xxx(2)正文内容用URL加密，解密后流量最中明显的特征为ini_set (“display_errors”,”0”);</p>
-<p>冰蝎流量特征:流量动态加密<br>1.请求包Content-Type: application&#x2F;octet-stream<br>2.返回包Transfer-Encoding:chunked<br>冰蝎二 (1)二次密钥协商(2)内置十多个ua头(3)content-length: 16 (4) accept字段:字段很特殊：text&#x2F;html, image&#x2F;gif, image&#x2F;jpeg, *; q&#x3D;.2, &#x2F;; q&#x3D;.2<br>Content-Length: 16, 16就是冰蝎2连接的特征<br>冰蝎三(1)预共享密钥(2)内置16个ua头(3) content-type: text&#x2F;html;charset&#x3D;utf-8 (4)accept: 字段特殊</p>
+<p>冰蝎流量特征:流量动态加密<br>1.请求包Content-Type: application&#x2F;octet-stream<br>2.返回包Transfer-Encoding:chunked<br>冰蝎二 (1)二次密钥协商(2)内置十多个ua头(3)content-length: 16 (4) accept字段:字段很特殊：text&#x2F;html, image&#x2F;gif, image&#x2F;jpeg, *; q&#x3D;.2, &#x2F;; q&#x3D;.2<br>冰蝎三(1)预共享密钥(2)内置16个ua头(3) content-type: text&#x2F;html;charset&#x3D;utf-8 (4)accept: 字段特殊</p>
 <p>哥斯拉流量特征: base64加密<br>(1)请求 Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;webp,&#x2F;;q&#x3D;0.8<br>(2)响应Cache-Control: no-store, no-cache, must-revalidate,<br>(3)所有请求中Cookie后面都存在；特征</p>
 <p>log4j2原理: log4j2框架下的lookup查询服务提供了{}字段解析功能,传进去的值会被直接解析,这样不对lookup的出栈进行限制,可能让查询指向任何服务,攻击者可以利用这点进行JNDI注入，使得受害者请求远程服务来链接本地对象，在lookup的{}里面构造payload，调用JNDI服务向攻击者提前部署好的恶意站点获取恶意的.class对象，造成了远程代码执行（可反弹shell到指定服务器）</p>
 <p>fastjson原理:在请求包中发送恶意json格式payload，漏洞在处理json对象的时候，没有对@type过滤，导致可以传入恶意的TemplatesImpl类,这个类有一个字段就是_bytecodes，部分函数会根据这个生成java实例,达到fastjson通过字段传一个类,再通过这个类被生成时执行构造函数</p>

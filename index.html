@@ -193,7 +193,7 @@
     <div class="excerpt">
         <div class="content" v-pre>
             
-            <p>owasp top10: SQL 注入 失效的身份认证 敏感数据泄露 XXE<br>失效的访问控制 安全配置错误 XSS 不安全的反序列化<br>使用含有已知漏洞的组件 不足的日志记录和监控</p>
+            <p>owasp top10: sqli 失效身份认证 敏感数据泄露 XXE<br>失效访问控制 安全配置错误 XSS 反序列化<br>使用含已知漏洞的组件 不足的日志记录和监控</p>
 <p>rce:没对接口输入内容严格判断,造成攻击者构造的代码非法执行<br>    防御: (1)用json不用eval(2)用eval的地方严格处理数据</p>
 <p>csrf: 攻击者盗用了受害者的身份，以受害者的名义发送恶意请求<br>    防御: (1)验证referer	(2)验证token		{[token安全级更高 因为随机且不可泄露]}</p>
 <p>xxe: 由于程序在解析XML数据时,解析了攻击者伪造的xml<br>    危害: (1)加载恶意外部文件 (2)文件读取 (3)命令执行 (4)内网端口扫描 (5)攻击内网<br>    防御: XML数据,如果使用程序为PHP,将libxml_disable_entity_loader设为TRUE来禁用外部实体</p>

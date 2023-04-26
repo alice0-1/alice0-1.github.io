@@ -193,46 +193,26 @@
     <div class="excerpt">
         <div class="content" v-pre>
             
-            <p>owasp top10: 注入 XSS XXE 反序列化<br>敏感数据泄露<br>失效身份认证 失效访问控制 安全配置错误<br>使用含已知漏洞的组件 不足的日志记录和监控</p>
+            <p><span style="color:green;">php函数 命令执行</span><br>System exec shell_exec pcntl_exec popen passthru proc_open<br><span style="color:green;">常见端口:</span> db2 5000  mysql3306 sqlserver1422 mssql1433 redis6379 Oracle1521 ftp21 ssh22 telnet23 smtp25 win远程连接3389 http443 weblogic7001<br><span style="color:green;">同源策略:</span>同协议,端口,域名共享cookie<br><span style="color:green;">登录框&#x2F;登录页面漏洞</span><br>注入 弱口令 爆破 验证码复用 验证码绕过 用户名枚举<br><span style="color:green;">中间件漏洞</span><br>IIS: PUT漏洞,短文件名猜解,远程代码执行,解析漏洞<br>Apache: 解析漏洞,目录遍历等<br>Nginx:文件解析,目录遍历,CRLF注入,目录穿越<br>Tomcat: 远程代码执行,war后门文件部署<br>JBoss: 反序列化漏洞、war后门文件部署<br>WebLogic: 反序列化漏洞,SSRF任意文件上传,war后门文件部署等<br><span style="color:green;">3389端口无法连接的几种情况</span><br>(1)关闭状态(2)waf(3)端口改了(4)处于内网(5)最大连接数(6)指定用户登录<br>redis数据库常见的漏洞<br>答：redis是非关系型,端口6379 常见漏洞是未授权,无需认证就访问内部数据,也能getshell</p>
+<p>owasp top10: 注入 XSS XXE 反序列化<br>敏感数据泄露<br>失效身份认证 失效访问控制 安全配置错误<br>使用含已知漏洞的组件 不足的日志记录和监控</p>
 <p>rce:没对接口输入严格判断,恶意代码非法执行<br>    防御: (1)用eval的地方严格处理数据(2)用json不用eval</p>
-<p>csrf: 盗用受害者的身份发送恶意请求<br>    防御: (1)验证referer	(2)验证token[token安全级更高 因为随机]</p>
+<p>csrf: 盗用受害者的身份发送恶意请求<br>    防御: (1)验证referer	(2)验证token token安全级更高 因为随机</p>
 <p>xxe: 解析了攻击者伪造的xml<br>    危害: (1)文件读取 (2)命令执行 (3)内网端口探测<br>    防御: (1)禁用xml(2)过滤xml</p>
 <p>ssrf: 以服务端为跳板攻击目标系统<br>原因:服务器对其他服务器资源进行请求，没有做合法性验证<br>防御: (1)url白名单(2)校验返回内容(3)过滤内部ip </p>
 <p>反序列化: 序列化是将对象转化为序列,反序列化相反,过滤不严就能执行<br>防御:白名单</p>
-<p>upload: 恶意文件伪装成正常文件上传并被执行<br>防御:(1)黑&#x2F;白名单(2)js校验(3)mime检测(4)文件头校验(5)文件内容校验(6)隐藏上传路径(7)禁止文件执行(8)二次渲染<br>    [条件竞争:上传文件没有校验,上传成功才判断格式是否符合白名单,如果符合就重命名,不符合删除]<br>    [二次渲染:根据上传的图片,新生成一个图片,将原始图片删除，将新图片添加到数据库中]</p>
+<p>upload: 恶意文件伪装成正常文件上传并被执行<br>防御:(1)黑&#x2F;白名单(2)js校验(3)mime检测(4)文件头校验(5)文件内容校验(6)隐藏上传路径(7)禁止文件执行(8)<br>条件竞争:上传文件没有校验,上传成功才判断格式是否符合白名单,如果符合就重命名,不符合删除<br>二次渲染:根据上传的图片,新生成一个图片,将原始图片删除，将新图片添加到数据库中</p>
 <p>include: 引入一段代码,并让服务器通过用户可控的动态变量引入文件<br>伪协议: (1)file (2)http (3)ftp (4)php (5)data (6)expect<br>防御:(1)白名单(2)过滤危险字符(3)allow_url_include&#x3D;off(4)open_basedir&#x3D;指定目录</p>
-<p>xss原理: 将恶意js插入Web页面中，浏览时会被触发<br>反射型: 不保存而是反射回受害者浏览器<br>存储型: 存入数据库,从数据库取出数据执行<br>DOM型: 不与服务器交互,通过DOM输出<br>绕过: (1)大小写&#x2F;双写(2)事件(3)伪协议 [a href&#x2F;src]<br>防御: (1)对输入编码(2)对cookie httponly (3)urlencode检测<br>Httponly:禁止js读取,如果cookie中的一个参数带有httponly，则这个参数将不能被js获取；httponly可以防止xss会话劫持攻击</p>
+<p>xss原理: 将恶意js插入Web页面中，浏览时会被触发<br>反射型: 不保存而是反射回受害者浏览器<br>存储型: 存入数据库,从数据库取出数据执行<br>DOM型: 不与服务器交互,通过DOM输出<br>绕过: (1)大小写&#x2F;双写(2)事件(3)伪协议：a href&#x2F;src<br>防御: (1)对输入编码(2)对cookie httponly (3)urlencode检测<br>Httponly:禁止js读取,如果cookie中的一个参数带有httponly，则这个参数将不能被js获取；httponly可以防止xss会话劫持攻击</p>
 <p>sqli原理: 把SQL插入Web表单,提交请求查询,欺骗服务器执行<br> 类型:(1)报错注入(2)布尔(3)时间(4)联合(5)堆叠<br>绕过: (1)大小写 (2)双写 (3)空格 (4)注释符号 (5)十六进制 (6)ascii码<br>防御: (1)过滤,转义,替换,删除 (2)预编译 (3)限制关键字与输入长度 (4)waf</p>
-<p>宽字节注入<br>假如’被转义为&#39;,其中\十六进制是%5c,mysql的GBK认为%df%5c是个宽字节,也就是’運’,使’逃逸出来<br>二次注入<br>脏数据存入数据库后,被直接取出并进入SQL查询语句</p>
-<p>盲注sleep()函数禁用<br>同样功能的函数代替，比如benchmark() Get_lock()函数<br>报错注入的函数<br>updatexml(),exp(),floor(),join()</p>
-<p>sqli写shell<br>通过outfile,将马写入eval.php<br>?id&#x3D;1 union select 1,”<?马?>“ into outfile ‘绝对路径’<br>权限要求：物理路径,权限,支持目录文件导出</p>
-<p>菜刀流量特征: (1)eval()(2)base64编码(3) 请求体中有(base64_decode($_POST[z0]);通过&amp;z0&#x3D;QGluaV9zZXQ…传递payload</p>
-<p>蚁剑流量特征: (1)默认的 user-agent 请求头是 antsword xxx(2)正文内容用URL加密，解密后流量最中明显的特征为ini_set (“display_errors”,”0”);</p>
-<p>冰蝎流量特征:流量动态加密<br>1.请求包Content-Type: application&#x2F;octet-stream<br>2.返回包Transfer-Encoding:chunked<br>冰蝎二 (1)二次密钥协商(2)内置十多个ua头(3)content-length: 16 (4) accept字段:字段很特殊：text&#x2F;html, image&#x2F;gif, image&#x2F;jpeg, *; q&#x3D;.2, &#x2F;; q&#x3D;.2<br>冰蝎三(1)预共享密钥(2)内置16个ua头(3) content-type: text&#x2F;html;charset&#x3D;utf-8 (4)accept: 字段特殊</p>
-<p>哥斯拉流量特征: base64加密<br>(1)请求 Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;webp,&#x2F;;q&#x3D;0.8<br>(2)响应Cache-Control: no-store, no-cache, must-revalidate,<br>(3)所有请求中Cookie后面都存在；特征</p>
-<p>cs流量特征: 4.0版本的UA头是固定的submit.php带?id参数 ja3值固定</p>
-<p>Weblogic<br>存在管理后台,通过账号密码登录，由于管理员经常用弱口令，或者默认的账户名密码。因此存在弱口令爆破的风险。<br>log4j2 log4j2框架下的lookup查询服务提供了{}字段解析功能,传进去的值会被直接解析,不对lookup的出栈限制,可能让查询指向任何服务,攻击者可以利用这点进行JNDI注入，使得受害者请求远程服务来链接本地对象，在lookup的{}里面构造payload，调用JNDI服务向攻击者提前部署好的恶意站点获取恶意的.class对象，造成了远程代码执行（可反弹shell到指定服务器）<br>fastjson<br>在请求包中发送恶意json格式payload，漏洞在处理json对象的时候，没有对@type过滤，导致可以传入恶意的TemplatesImpl类,这个类有一个字段就是_bytecodes，部分函数会根据这个生成java实例,达到fastjson通过字段传一个类,再通过这个类被生成时执行构造函数<br>Shiro反序列化漏洞:Apache Shiro框架提供RemeberMe,登录成功后会生成经过加密并编码的cookie。cookie的key为RemeberMe，cookie的值是经过对相关信息进行序列化，然后使用aes加密，最后在使用base64编码处理形成的,在调用反序列化的时候未进行任何过滤,导致可以触发远程代码执行漏洞</p>
-<p>中间件漏洞<br>IIS: PUT漏洞,短文件名猜解,远程代码执行,解析漏洞<br>Apache: 解析漏洞,目录遍历等<br>Nginx:文件解析,目录遍历,CRLF注入,目录穿越<br>Tomcat: 远程代码执行,war后门文件部署<br>JBoss: 反序列化漏洞、war后门文件部署<br>WebLogic: 反序列化漏洞,SSRF任意文件上传,war后门文件部署等</p>
-<p>redis数据库常见的漏洞<br>答：redis是非关系型,端口6379 常见漏洞是未授权,无需认证就访问内部数据,也能getshell</p>
-<p>登录框&#x2F;登录页面漏洞<br>注入及万能密码<br>验证码绕过<br>任意密码重置<br>越权<br>明文传输<br>敏感信息泄露</p>
-<p>溯源: 攻击源捕获-溯源处置-攻击者画像<br>捕获(1)​设备告警 ​钓鱼邮件 日志与流量 蜜罐	<br>处置(2)定位ip 追踪身份 社工 分析恶意样本<br>画像:(1)目的(2)手法(3)身份(4)单位</p>
-<p>渗透测试流程: 信息收集 漏扫 手挖 验证 修复建议<br>信息收集: ip 端口 子域名 旁站 c段 目录 cms fofa 谷歌语法 whois</p>
+<p><span style="color:green;">宽字节注入</span><br>假如’被转义为&#39;,其中\十六进制是%5c,mysql的GBK认为%df%5c是个宽字节,也就是’運’,使’逃逸出来<br><span style="color:green;">二次注入</span><br>脏数据存入数据库后,被直接取出并进入SQL查询语句<br><span style="color:green;">盲注sleep()函数禁用</span><br>同样功能的函数代替，比如benchmark() Get_lock()函数<br><span style="color:green;">报错注入的函数</span><br>updatexml(),exp(),floor(),join()<br><span style="color:green;">sqli写shell</span><br>通过outfile,将马写入eval.php<br>?id&#x3D;1 union select 1,”<?马?>“ into outfile ‘绝对路径’<br>权限要求：物理路径,权限,支持目录文件导出</p>
+<p><span style="color:rgb(255, 0, 255);">菜刀流量特征</span><br>(1)eval()(2)base64编码(3) 请求体中有(base64_decode($_POST[z0]);通过&amp;z0&#x3D;QGluaV9zZXQ…传递payload<br><span style="color:rgb(255, 0, 255);">蚁剑流量特征</span><br> (1)默认的 user-agent 请求头是 antsword xxx(2)正文内容用URL加密，解密后流量最中明显的特征为ini_set (“display_errors”,”0”);<br><span style="color:rgb(255, 0, 255);">哥斯拉流量特征: base64加密</span><br>(1)请求 Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;webp,&#x2F;;q&#x3D;0.8<br>(2)响应Cache-Control: no-store, no-cache, must-revalidate,<br>(3)所有请求中Cookie后面都存在；特征<br><span style="color:rgb(255, 0, 255);">冰蝎流量特征:流量动态加密</span><br>1.请求包Content-Type: application&#x2F;octet-stream<br>2.返回包Transfer-Encoding:chunked<br>冰蝎二 (1)二次密钥协商(2)内置十多个ua头(3)content-length: 16 (4) accept字段:字段很特殊：text&#x2F;html, image&#x2F;gif, image&#x2F;jpeg, *; q&#x3D;.2, &#x2F;; q&#x3D;.2<br>冰蝎三(1)预共享密钥(2)内置16个ua头(3) content-type: text&#x2F;html;charset&#x3D;utf-8 (4)accept: 字段特殊</p>
+<p><span style="color:red;">Weblogic</span><br>存在管理后台,通过账号密码登录，由于管理员经常用弱口令，或者默认的账户名密码。因此存在弱口令爆破的风险。<br><span style="color:red;">log4j2M</span> log4j2框架下的lookup查询服务提供了{}字段解析功能,传进去的值会被直接解析,不对lookup的出栈限制,可能让查询指向任何服务,攻击者可以利用这点进行JNDI注入，使得受害者请求远程服务来链接本地对象，在lookup的{}里面构造payload，调用JNDI服务向攻击者提前部署好的恶意站点获取恶意的.class对象，造成了远程代码执行（可反弹shell到指定服务器）<br><span style="color:red;">fastjson</span><br>在请求包中发送恶意json格式payload，漏洞在处理json对象的时候，没有对@type过滤，导致可以传入恶意的TemplatesImpl类,这个类有一个字段就是_bytecodes，部分函数会根据这个生成java实例,达到fastjson通过字段传一个类,再通过这个类被生成时执行构造函数<br><span style="color:red;">Shiro反序列化漏洞:Apache</span> Shiro框架提供RemeberMe,登录成功后会生成经过加密并编码的cookie。cookie的key为RemeberMe，cookie的值是经过对相关信息进行序列化，然后使用aes加密，最后在使用base64编码处理形成的,在调用反序列化的时候未进行任何过滤,导致可以触发远程代码执行漏洞</p>
+<p><span style="color:green;">溯源: 攻击源捕获-溯源处置-攻击者画像</span><br>捕获(1)​设备告警 ​钓鱼邮件 日志与流量 蜜罐	<br>处置(2)定位ip 追踪身份 社工 分析恶意样本<br>画像:(1)目的(2)手法(3)身份(4)单位<br><span style="color:green;">渗透测试流程: 信息收集 漏扫 手挖 验证 修复建议</span><br>信息收集: ip 端口 子域名 旁站 c段 目录 cms fofa 谷歌语法 whois</p>
 <p>cdn ip:DNS历史解析 fofa 子域名 国外ping</p>
 <p>逻辑漏洞:未授权,越权,并发,短信轰炸,验证码复用-任意重置验证码</p>
-<p>同源策略:同协议,端口,域名共享cookie</p>
-<p>getshell的方式: 文件上传,rce,反序列化,远程文件包含,sqli</p>
-<p>判断出网站的 CMS 对渗透的意义<br>查找网上已曝光的程序漏洞[如果开源,还能下载源码审计]</p>
+<p><span style="color:red;">内网信息收集思路</span><br>(1)域是否存在<br>(2)域基本信息查询<br>(3)用户查询<br>(4)主机查询<br>(5)定位dc<br><span style="color:red;">内网渗透思路</span><br>信息收集  提权 爆密码&#x2F;hash ipc&#x2F;smb连接 pth&#x2F;t&#x2F;k横向  黄金&#x2F;白银维权 清日志 (隧道代理&#x2F;免杀)<br><span style="color:red;">Windows提权</span><br>内核溢出<br>数据库<br>at,sc,ps<br>path<br>令牌窃取<br>DLL劫持<br>第三方软件or服务<br>中间件漏洞<br><span style="color:red;">Linux提权</span><br>内核溢出<br>数据库<br>crontab<br>path<br>Suid和guid<br><span style="color:red;">Shellcode免杀:编码 加壳 混淆 分离免杀 特征码修改 添加无用逻辑语句 重写api</span><br>分离免杀: 分为加载器和shellcode两部分,一般将shellcode存储在网页或者图片中，然后加载器远程加载存在shellcode的网页或者图片之类的<br><span style="color:red;">白银票据与黄金票据的区别</span><br>1.白银票据不经过KDC,因此白银日志相对黄金会少，同时白银的日志都在目标服务器上,域控上不会有日志<br>2.白银利用服务账户的哈希值,不同于黄金利用krbtgt账户的哈希值，因此白银票据更加隐蔽，但白银票据的权限就远不如黄金<br><span style="color:red;">正反向shell</span><br>正向Shell：攻击者连接被攻击者 [用于攻击者内网,被攻击者公网]<br>反向Shell：被攻击者主动连接攻击者 [用于攻击者公网,被攻击者内网]<br>getshell的方式: 文件上传,rce,反序列化,远程文件包含,sqli</p>
+<p>判断出网站的 CMS 对渗透的意义<br>查找网上已曝光的程序漏洞如果开源,还能下载源码审计</p>
 <p>session:原理<br>客户端登录后，服务器创建对应的session创建完会把 session 的id发送给客户端，客户端再存储到浏览器中。这样客户端每次访问服务器时,都会带着 sessionid，服务器拿到 sessionid 之后，在内存找到与之对应的 session</p>
-<p>php函数 命令执行<br>System exec shell_exec pcntl_exec popen passthru proc_open</p>
-<p>常见端口: db2 5000  mysql3306 sqlserver1422 mssql1433 redis6379 Oracle1521 ftp21 ssh22 telnet23 smtp25 http443 weblogic7001 openssl443  </p>
-<p>3389端口无法连接的几种情况<br>(1)关闭状态(2)waf(3)端口改了(4)处于内网(5)最大连接数(6)指定用户登录</p>
-<p>内网信息收集思路<br>(1)域是否存在<br>(2)域基本信息查询<br>(3)用户查询<br>(4)主机查询<br>(5)定位dc </p>
-<p>内网渗透思路<br>信息收集  提权 爆密码&#x2F;hash ipc&#x2F;smb连接 pth&#x2F;t&#x2F;k横向  黄金&#x2F;白银维权 清日志 (隧道代理&#x2F;免杀)</p>
-<p>Windows提权<br>内核溢出<br>数据库<br>at,sc,ps<br>path<br>令牌窃取<br>DLL劫持<br>第三方软件or服务<br>中间件漏洞</p>
-<p>Linux提权<br>内核溢出<br>数据库<br>crontab<br>path<br>Suid和guid</p>
-<p>Shellcode免杀:编码 加壳 混淆 分离免杀 特征码修改 添加无用逻辑语句 重写api<br>分离免杀: 分为加载器和shellcode两部分,一般将shellcode存储在网页或者图片中，然后加载器远程加载存在shellcode的网页或者图片之类的</p>
-<p>白银票据与黄金票据的区别<br>1.白银票据不经过KDC,因此白银日志相对黄金会少，同时白银的日志都在目标服务器上,域控上不会有日志<br>2.白银利用服务账户的哈希值,不同于黄金利用krbtgt账户的哈希值，因此白银票据更加隐蔽，但白银票据的权限就远不如黄金</p>
-<p>正反向shell<br>正向Shell：攻击者连接被攻击者[可用于攻击者处于内网，被攻击者公网]<br>反向Shell：被攻击者主动连接攻击者<br>[可用于攻击者处与公网,被攻击者内网]</p>
 <p>暗链:通过利用CSS、JS隐藏链接,通常指向非法网站<br>检测:查看源码找非法链接</p>
 <p>osi模型:物理层,数据链路层,网络层ip,传输层tcp&#x2F;udp,会话层,表达层http&#x2F;s telnet,应用层<br>udp和tcp: udp资源占用与性能消耗少,tcp稳定可靠</p>
 <p>三次握手: 客户端向服务器发SYN,询问是否可连接,服务器回复SYN+ACK,客户端收到后回复一个ACK,连接成功</p>

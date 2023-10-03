@@ -143,7 +143,7 @@
 <p>ssrf: 服务器对其他服务器资源进行请求没有过滤<br>    危害:(1)端口扫描(2)指纹识别(3)文件读取(4)内网探针<br>    绕过:(1)@符号(2)点分割符号(3)ip进制转换<br>防御: (1)url白名单(2)校验返回内容(3)过滤内部ip<br>协议:(1)file(2)dict(3)gopher(4)http</p>
 <p>反序列化: 序列化是将对象转化为序列,反序列化相反,过滤不严就能执行<br>防御:白名单</p>
 <p>upload: 恶意文件伪装成正常文件上传并被执行<br>防御:(1)黑&#x2F;白名单(2)js校验(3)mime检测(4)文件头校验(5)文件内容校验(6)隐藏上传路径(7)禁止文件执行<br>条件竞争:上传文件没校验,上传成功才判断格式是否符合白名单,符合就重命名,不符合删除<br>二次渲染:根据上传的图片,新生成一个图片,将原始图片删除，将新图片添加到数据库中</p>
-<p>include: 引入一段代码,并让服务器通过用户可控的动态变量引入文件<br>伪协议: (1)file (2)data (3)php:filter(4)php:input<br>函数: 1.include()2.require()3.include_once()4.require_once()<br>危害:(1)读取敏感文件(2)执行文件<br>防御:(1)白名单(2)过滤危险字符(3)allow_url_include&#x3D;off(4)allow_url_fopen&#x3D;off(5)open_basedir&#x3D;指定目录</p>
+<p>include: 引入一段代码,并让服务器通过用户可控的动态变量引入文件<br>伪协议: (1)file (2)data (3)php:filter(4)php:input<br>函数: 1.include()2.require()3.include_once()4.require_once()<br>危害:(1)读取敏感文件(2)文件执行<br>防御:(1)白名单(2)过滤危险字符(3)allow_url_include&#x3D;off(4)allow_url_fopen&#x3D;off(5)open_basedir&#x3D;指定目录</p>
 <p>xss原理: 将恶意js插入Web页面中，浏览时会被触发<br>反射型: 不保存而是反射回受害者浏览器<br>存储型: 存入数据库,从数据库取出数据执行<br>DOM型: 不与服务器交互,通过DOM输出<br>绕过: (1)大小写&#x2F;双写(2)事件(3)伪协议：a href&#x2F;src<br>防御: (1)对输入编码(2)对cookie httponly (3)urlencode检测<br>Httponly:禁止js读取,如果cookie中的一个参数带有httponly，则这个参数将不能被js获取；httponly可以防止xss会话劫持攻击</p>
 <p>sqli原理: 把SQL插入Web表单,提交请求查询,欺骗服务器执行<br> 类型:(1)报错注入(2)布尔(3)时间(4)联合(5)堆叠<br>绕过: (1)大小&#x2F;双写(2)注释符号&#x2F;**&#x2F; &lt;&gt;(3)编码:url十六进制ascii码<br>防御: (1)过滤,转义,替换,删除 (2)预编译 (3)waf</p>
 <p>判断注入点:(1)’报错(2)and1&#x3D;1&#x2F;and1&#x3D;2布尔(3)sleep()时间<br>‘被过滤用双单引号,宽字节,十六进制0x27,ascii码char(39)绕</p>
